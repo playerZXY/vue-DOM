@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <title>Vue学习</title>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+		
+		<style type="text/css"> 
+			.drag{
+				width: 100px;
+				height: 100px;
+				position: absolute;
+				top: 0;
+				left: 0;
+				background-color: red;
+				background: url(./aoyun.jpg);
+				background-size: cover;
+			}
+			.drag:hover{
+				width: 100px;
+				height: 100px;
+				position: absolute;
+				top: 0;
+				left: 0;
+				cursor:pointer;
+				background-color: red;
+				background: url(./aoyun.jpg);
+				background-size: cover;
+			}
+		</style>
+		
+    </head>
+	
+	<div id="app1" v-drag class="drag"></div>
+	
+	<script>
+		// 拖动div元素
+		let vm1 = new Vue({
+			el:'#app1',
+			// 自定义指令
+			directives:{
+				drag(el, bindings){
+					el.onmousedown = function(e){
+						var disx = e.pageX - el.offsetLeft;
+						var disy = e.pageY - el.offsetTop;
+						document.onmousemove = function (e){
+							el.style.left = e.pageX - disx + 'px';
+							el.style.top = e.pageY - disy + 'px';
+						}
+						document.onmouseup = function(){
+							document.onmousemove = document.onmouseup = null;
+						}
+					}
+				}
+			}
+		})
+    </script>
+	</body>
+
+</html>
